@@ -126,7 +126,7 @@ TextureImporter:
         width: 881
         height: 470
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,6 +134,69 @@ TextureImporter:
       bones: []
       spriteID: 1e1db40489a53a041b18c1d4aa1b18f0
       internalID: 213758826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "b\u1EA3ng game over_1"
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 234
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5af70ebd090a74244b9cf257feb17b61
+      internalID: -71254118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "b\u1EA3ng game over_2"
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 235
+        width: 123
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc1121ee34163f34497b7efae0fdf862
+      internalID: 218438485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "b\u1EA3ng game over_3"
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 266
+        width: 60
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a598172e41ce71b4da48c2b8a17be9e0
+      internalID: 1354541981
       vertices: []
       indices: 
       edges: []
@@ -149,7 +212,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      "b\u1EA3ng game over_3": 1354541981
+      "b\u1EA3ng game over_2": 218438485
       "b\u1EA3ng game over_0": 213758826
+      "b\u1EA3ng game over_1": -71254118
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
