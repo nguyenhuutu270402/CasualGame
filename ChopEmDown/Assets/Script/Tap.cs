@@ -103,7 +103,7 @@ public class Tap : MonoBehaviour
     {
         if (hitInfo.transform.gameObject.name == "TapRight")
         {
-            Player.transform.localPosition = new Vector3(0.25f, -0.77f, 0);
+            Player.transform.localPosition = new Vector3(0.25f, -0.5f, 0);
             Player.transform.localRotation = Quaternion.Euler(0, 180, 0);
             trunkManager.cutFirstTrunk();
             
@@ -114,7 +114,7 @@ public class Tap : MonoBehaviour
         }
         else
         {
-            Player.transform.localPosition = new Vector3(-0.25f, -0.77f, 0);
+            Player.transform.localPosition = new Vector3(-0.25f, -0.5f, 0);
             Player.transform.localRotation = Quaternion.Euler(0, 0, 0);
             trunkManager.cutFirstTrunk();
             Tapdirection = "BranchLeft";
