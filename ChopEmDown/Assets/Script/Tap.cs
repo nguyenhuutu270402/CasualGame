@@ -1,6 +1,9 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tap : MonoBehaviour
 {
@@ -41,9 +44,12 @@ public class Tap : MonoBehaviour
     private float xLeft = -0.593f;
 
 
+  
 
     void Start()
     {
+        
+
         //TapLeft.transform.localPosition = new Vector3(xLeft, 500, TapLeft.transform.localPosition.z);
         //TapRight.transform.localPosition = new Vector3(xRight, 500, TapRight.transform.localPosition.z);
 
@@ -52,6 +58,7 @@ public class Tap : MonoBehaviour
         playerController = Player.GetComponent<PlayerController>();
 
         gameOver = GameOverCanvas.GetComponent<GameOver>();
+        ReadBestPoints();
     }
     void Update()
     {
@@ -63,6 +70,8 @@ public class Tap : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+
+            
 
             Vector2 pos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(pos), Vector2.zero);
@@ -93,10 +102,14 @@ public class Tap : MonoBehaviour
             if (bestScore < score)
             {
                 bestScore = score;
+                UpdateBestPoints();
             }
 
-         
-            gameOver.ShowGameOverCanvas();
+         if(GameOver.isSetting == false)
+            {
+                gameOver.ShowGameOverCanvas();
+            }
+            
 
         }
 
@@ -119,9 +132,9 @@ public class Tap : MonoBehaviour
         GUIScript.gameObject.SetActive(true);
         //TapLeft.transform.localPosition = new Vector3(xLeft, -0.499f, TapLeft.transform.localPosition.z);
         //TapRight.transform.localPosition = new Vector3(xRight, -0.499f, TapRight.transform.localPosition.z);
-
-
     }
+
+    
 
 
 
@@ -163,6 +176,59 @@ public class Tap : MonoBehaviour
     {
         TapLeft.transform.localPosition = new Vector3(xLeft, -0.499f, TapLeft.transform.localPosition.z);
         TapRight.transform.localPosition = new Vector3(xRight, -0.499f, TapRight.transform.localPosition.z);
+    }
+
+
+
+
+    public void UpdateBestPoints()
+    {
+        // read
+        string filepath = "user.json";
+        var users = new List<ClassUser.UserInfo>();
+        using (StreamReader r = new StreamReader(filepath))
+        {
+            var json = r.ReadToEnd();
+            users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
+        }
+
+        // update
+        foreach (var item in users)
+        {
+            item.bestPoints = score;
+        }
+
+        // save
+        using (StreamWriter w = new StreamWriter(filepath))
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Serialize(w, users);
+        }
+    }
+
+    public void ReadBestPoints()
+    {
+        // read
+        string filepath = "user.json";
+        var users = new List<ClassUser.UserInfo>();
+        using (StreamReader r = new StreamReader(filepath))
+        {
+            var json = r.ReadToEnd();
+            users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
+        }
+
+        // update
+        foreach (var item in users)
+        {
+            bestScore = item.bestPoints;
+        }
+
+        // save
+        using (StreamWriter w = new StreamWriter(filepath))
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Serialize(w, users);
+        }
     }
 
 }

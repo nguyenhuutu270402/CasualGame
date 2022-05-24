@@ -17,6 +17,8 @@ public class TrunkManager : MonoBehaviour
 
     public float rotateSpeed = 15f;
 
+    public GameObject myAudioObject;
+
     void Start()
     {
         branches = new List<GameObject>();
@@ -57,6 +59,9 @@ public class TrunkManager : MonoBehaviour
 
     public void cutFirstTrunk()
     {
+        // Play sound chop wood
+        myAudioObject.GetComponent<Audio>().playSoundChop();
+
         //Destroy(branches[0]);
         RemoveAndDestroyATrunk();
         branches.RemoveAt(0);
