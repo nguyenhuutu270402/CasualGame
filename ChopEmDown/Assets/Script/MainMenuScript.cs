@@ -9,7 +9,7 @@ public class MainMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        tap.RemoveTap();
     }
 
     // Update is called once per frame
@@ -21,6 +21,7 @@ public class MainMenuScript : MonoBehaviour
     public void PlayGame()
     {
         tap.ResetGame();
+        tap.ReStoreTap();
         gameObject.SetActive(false);
     }
 }

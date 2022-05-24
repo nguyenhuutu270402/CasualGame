@@ -49,6 +49,6 @@ public class RandomSeason : MonoBehaviour
             Fall.SetActive(false);
             Winter.SetActive(true);
         }
-        Debug.Log("rd" + rd);
+        //Debug.Log("rd" + rd);
     }
 }

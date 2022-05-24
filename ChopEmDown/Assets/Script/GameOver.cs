@@ -24,17 +24,22 @@ public class GameOver : MonoBehaviour
     {
         txtScore.text = tap.getScore() + "";
         txtScoreBest.text = tap.getScoreBest() + "";
+        tap.RemoveTap();
         gameObject.SetActive(true);
+        
     }
     public void HideGameOverCanvas()
     {
-        gameObject.SetActive(false);
+        
     }
 
     public void Replay()
     {
-        HideGameOverCanvas();
+       
         tap.ResetGame();
+        tap.ReStoreTap();
+        gameObject.SetActive(false);
+        Debug.Log("ON CLICK REPALY");
 
     }
 }

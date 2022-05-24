@@ -33,9 +33,20 @@ public class Tap : MonoBehaviour
 
     private bool isGameOver = true;
 
-    
+    private bool isTimeCount = false;
+
+    public GameObject TapLeft , TapRight;
+
+    private float xRight = 0.593f;
+    private float xLeft = -0.593f;
+
+
+
     void Start()
     {
+        //TapLeft.transform.localPosition = new Vector3(xLeft, 500, TapLeft.transform.localPosition.z);
+        //TapRight.transform.localPosition = new Vector3(xRight, 500, TapRight.transform.localPosition.z);
+
         currentTime = totalTime;
 
         playerController = Player.GetComponent<PlayerController>();
@@ -44,7 +55,10 @@ public class Tap : MonoBehaviour
     }
     void Update()
     {
-        currentTime -= Time.deltaTime;
+        if (isTimeCount)
+        {
+            currentTime -= Time.deltaTime;
+        }
         GUIScript.setBar(currentTime / totalTime);
 
         if (Input.GetMouseButtonDown(0))
@@ -70,30 +84,43 @@ public class Tap : MonoBehaviour
 
         if (Tapdirection == branchDirection || currentTime <= 0)
         {
+            
             isGameOver = true;
             playerController.Dead();
+            //TapLeft.transform.localPosition = new Vector3(xLeft, 500, TapLeft.transform.localPosition.z);
+            //TapRight.transform.localPosition = new Vector3(xRight, 500, TapRight.transform.localPosition.z);
+
             if (bestScore < score)
             {
                 bestScore = score;
             }
 
+         
             gameOver.ShowGameOverCanvas();
 
-            
         }
 
     }
 
     public void ResetGame()
     {
+
+        isTimeCount = true;
         isGameOver = false;
         score = 0;
         GUIScript.setScore(score);
         currentTime = totalTime;
+        Debug.Log(currentTime + "dmtruong");
         GUIScript.setBar(1);
+        Tapdirection = "1";
+        branchDirection = "2";
         playerController.Respawn();
         trunkManager.ResetTrunk();
         GUIScript.gameObject.SetActive(true);
+        //TapLeft.transform.localPosition = new Vector3(xLeft, -0.499f, TapLeft.transform.localPosition.z);
+        //TapRight.transform.localPosition = new Vector3(xRight, -0.499f, TapRight.transform.localPosition.z);
+
+
     }
 
 
@@ -124,6 +151,18 @@ public class Tap : MonoBehaviour
         }
 
         
+    }
+
+    public void RemoveTap()
+    {
+        TapLeft.transform.localPosition = new Vector3(xLeft, 500, TapLeft.transform.localPosition.z);
+        TapRight.transform.localPosition = new Vector3(xRight, 500, TapRight.transform.localPosition.z);
+    }
+
+    public void ReStoreTap()
+    {
+        TapLeft.transform.localPosition = new Vector3(xLeft, -0.499f, TapLeft.transform.localPosition.z);
+        TapRight.transform.localPosition = new Vector3(xRight, -0.499f, TapRight.transform.localPosition.z);
     }
 
 }
