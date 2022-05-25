@@ -87,7 +87,7 @@ public class Audio : MonoBehaviour
         // read
         string filepath = "user.json";
         var users = new List<ClassUser.UserInfo>();
-        using (StreamReader r = new StreamReader(filepath))
+        using (StreamReader r = new StreamReader(Application.dataPath + "/DataFile.json"))
         {
             var json = r.ReadToEnd();
             users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
@@ -150,7 +150,18 @@ public class Audio : MonoBehaviour
 
 
 
+    public void AddUser2()
+    {
+        ClassUser.UserInfo userInfo = new ClassUser.UserInfo();
+        userInfo.points = 0;
+        userInfo.bestPoints = 0;
+        userInfo.isMusic = true;
+        userInfo.isSound = false;
+        userInfo.items = new List<ClassUser.GameItem>();
 
+        string json = JsonUtility.ToJson(userInfo);
+        File.WriteAllText(Application.dataPath + "/DataFile.json", json);
+    }
 
 
 
@@ -158,14 +169,12 @@ public class Audio : MonoBehaviour
 
     public void AddUser()
     {
-        ClassUser.UserInfo userInfo = new ClassUser.UserInfo()
-        {
-            points = 0,
-            bestPoints = 0,
-            isMusic = true,
-            isSound = true,
-            items = new List<ClassUser.GameItem>()
-        };
+        ClassUser.UserInfo userInfo = new ClassUser.UserInfo();
+        userInfo.points = 0;
+        userInfo.bestPoints = 0;
+        userInfo.isMusic = true;
+        userInfo.isSound = true;
+        userInfo.items = new List<ClassUser.GameItem>();
 
         string filepath = "user.json";
         var users = new List<ClassUser.UserInfo>();

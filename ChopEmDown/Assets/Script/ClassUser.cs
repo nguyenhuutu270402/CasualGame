@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClassUser : MonoBehaviour
 {
+    [System.Serializable]
     public class UserInfo
     {
         public int points { get; set; }
@@ -14,6 +15,7 @@ public class ClassUser : MonoBehaviour
 
     }
 
+    [System.Serializable]
 
     public class GameItem
     {

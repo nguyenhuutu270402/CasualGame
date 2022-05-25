@@ -6,9 +6,17 @@ public class MainMenuScript : MonoBehaviour
 {
 
     public Tap tap;
+    public GameObject myAudioObject;
+
     // Start is called before the first frame update
     void Start()
     {
+        // read audio
+        myAudioObject.GetComponent<Audio>().ReadSound();
+        myAudioObject.GetComponent<Audio>().setActiveButtonAudio();
+
+
+
         tap.RemoveTap();
     }
 
