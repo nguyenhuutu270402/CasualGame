@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -58,54 +58,28 @@ public class Audio : MonoBehaviour
 
     public void ReadSound()
     {
-        // read
-        string filepath = "user.json";
-        var users = new List<ClassUser.UserInfo>();
-        using (StreamReader r = new StreamReader(filepath))
-        {
-            var json = r.ReadToEnd();
-            users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
-        }
+        // Read data
+        string jsonRead = File.ReadAllText(Application.dataPath + "/DataUser.json");
+        ClassUser dataFile = JsonUtility.FromJson<ClassUser>(jsonRead);
 
-        // update
-        foreach (var item in users)
-        {
-            ismMusic = item.isMusic;
-            ismSound = item.isSound;
-        }
-
-        // save
-        using (StreamWriter w = new StreamWriter(filepath))
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(w, users);
-        }
+        //read sound
+        ismMusic = dataFile.isMusic;
+        ismSound = dataFile.isSound;
     }
 
     public void UpdateSound()
     {
-        // read
-        string filepath = "user.json";
-        var users = new List<ClassUser.UserInfo>();
-        using (StreamReader r = new StreamReader(Application.dataPath + "/DataFile.json"))
-        {
-            var json = r.ReadToEnd();
-            users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
-        }
+        // Read data
+        string jsonRead = File.ReadAllText(Application.dataPath + "/DataUser.json");
+        ClassUser dataFile = JsonUtility.FromJson<ClassUser>(jsonRead);
 
-        // update
-        foreach (var item in users)
-        {
-            item.isMusic = ismMusic;
-            item.isSound = ismSound;
-        }
+        //update
+        dataFile.isMusic = ismMusic;
+        dataFile.isSound = ismSound;
 
-        // save
-        using (StreamWriter w = new StreamWriter(filepath))
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(w, users);
-        }
+        //Save data
+        string json = JsonUtility.ToJson(dataFile, true);
+        File.WriteAllText(Application.dataPath + "/DataUser.json", json);
     }
 
 
@@ -150,48 +124,30 @@ public class Audio : MonoBehaviour
 
 
 
-    public void AddUser2()
-    {
-        ClassUser.UserInfo userInfo = new ClassUser.UserInfo();
-        userInfo.points = 0;
-        userInfo.bestPoints = 0;
-        userInfo.isMusic = true;
-        userInfo.isSound = false;
-        userInfo.items = new List<ClassUser.GameItem>();
-
-        string json = JsonUtility.ToJson(userInfo);
-        File.WriteAllText(Application.dataPath + "/DataFile.json", json);
-    }
-
-
-
-
 
     public void AddUser()
     {
-        ClassUser.UserInfo userInfo = new ClassUser.UserInfo();
-        userInfo.points = 0;
-        userInfo.bestPoints = 0;
-        userInfo.isMusic = true;
-        userInfo.isSound = true;
-        userInfo.items = new List<ClassUser.GameItem>();
-
-        string filepath = "user.json";
-        var users = new List<ClassUser.UserInfo>();
-        using (StreamReader r = new StreamReader(filepath))
+        try
         {
-            var json = r.ReadToEnd();
-            users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
-            // kiem tra username ton tai
-            if (users == null) users = new List<ClassUser.UserInfo>();
+            string jsonRead = File.ReadAllText(Application.dataPath + "/DataUser.json");
+            ClassUser dataFile0 = JsonUtility.FromJson<ClassUser>(jsonRead);
+            if (dataFile0 == null)
+            {
+                ClassUser dataFile = new ClassUser();
+                dataFile.points = 0;
+                dataFile.bestPoints = 0;
+                dataFile.isMusic = true;
+                dataFile.isSound = true;
+                dataFile.items = new List<GameItem>();
 
+                string json = JsonUtility.ToJson(dataFile, true);
+
+                File.WriteAllText(Application.dataPath + "/DataUser.json", json);
+            }
         }
-
-        users.Add(userInfo);
-        using (StreamWriter file = File.CreateText(filepath))
+        catch (Exception e)
         {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(file, users);
+            File.WriteAllText(Application.dataPath + "/DataUser.json", "");
         }
     }
 }

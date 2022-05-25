@@ -183,52 +183,27 @@ public class Tap : MonoBehaviour
 
     public void UpdateBestPoints()
     {
-        // read
-        string filepath = "user.json";
-        var users = new List<ClassUser.UserInfo>();
-        using (StreamReader r = new StreamReader(filepath))
-        {
-            var json = r.ReadToEnd();
-            users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
-        }
+        // Read data
+        string jsonRead = File.ReadAllText(Application.dataPath + "/DataUser.json");
+        ClassUser dataFile = JsonUtility.FromJson<ClassUser>(jsonRead);
 
-        // update
-        foreach (var item in users)
-        {
-            item.bestPoints = score;
-        }
+        //update
+        dataFile.bestPoints = bestScore;
 
-        // save
-        using (StreamWriter w = new StreamWriter(filepath))
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(w, users);
-        }
+
+        //Save data
+        string json = JsonUtility.ToJson(dataFile, true);
+        File.WriteAllText(Application.dataPath + "/DataUser.json", json);
     }
 
     public void ReadBestPoints()
     {
-        // read
-        string filepath = "user.json";
-        var users = new List<ClassUser.UserInfo>();
-        using (StreamReader r = new StreamReader(filepath))
-        {
-            var json = r.ReadToEnd();
-            users = JsonConvert.DeserializeObject<List<ClassUser.UserInfo>>(json);
-        }
+        // Read data
+        string jsonRead = File.ReadAllText(Application.dataPath + "/DataUser.json");
+        ClassUser dataFile = JsonUtility.FromJson<ClassUser>(jsonRead);
 
-        // update
-        foreach (var item in users)
-        {
-            bestScore = item.bestPoints;
-        }
-
-        // save
-        using (StreamWriter w = new StreamWriter(filepath))
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(w, users);
-        }
+        //read sound
+        bestScore = dataFile.bestPoints;
     }
 
 }

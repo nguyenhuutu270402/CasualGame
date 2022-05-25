@@ -11,6 +11,9 @@ public class MainMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // ch?y 2 l?n ?? ko b? l?i. ch?a tìm ra cách fix
+        myAudioObject.GetComponent<Audio>().AddUser();
+        myAudioObject.GetComponent<Audio>().AddUser();
         // read audio
         myAudioObject.GetComponent<Audio>().ReadSound();
         myAudioObject.GetComponent<Audio>().setActiveButtonAudio();
