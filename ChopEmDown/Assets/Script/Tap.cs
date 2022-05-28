@@ -16,6 +16,8 @@ public class Tap : MonoBehaviour
 
     public GameObject GameOverCanvas;
     private GameOver gameOver;
+    public GameObject myAudioObject;
+
 
 
     public GUIScript GUIScript;
@@ -35,6 +37,8 @@ public class Tap : MonoBehaviour
 
 
     private bool isGameOver = true;
+    private bool isSmoke = false;
+
 
     private bool isTimeCount = false;
 
@@ -96,6 +100,27 @@ public class Tap : MonoBehaviour
             
             isGameOver = true;
             playerController.Dead();
+
+            // t?o khói khi ch?t
+            if(isSmoke == false )
+            {
+                GameObject smoke = (GameObject)Instantiate(Resources.Load("Prefabs/Smoke"));
+
+                smoke.transform.localPosition =
+                    new Vector3(playerController.transform.position.x,
+                                playerController.transform.position.y, playerController.transform.position.z);
+                myAudioObject.GetComponent<Audio>().playAudioDead();
+
+                isSmoke = true;
+
+                
+
+            }
+
+
+
+
+
             //TapLeft.transform.localPosition = new Vector3(xLeft, 500, TapLeft.transform.localPosition.z);
             //TapRight.transform.localPosition = new Vector3(xRight, 500, TapRight.transform.localPosition.z);
 
@@ -108,6 +133,7 @@ public class Tap : MonoBehaviour
          if(GameOver.isSetting == false)
             {
                 gameOver.ShowGameOverCanvas();
+                
             }
             
 
@@ -120,6 +146,7 @@ public class Tap : MonoBehaviour
 
         isTimeCount = true;
         isGameOver = false;
+        isSmoke = false;
         score = 0;
         GUIScript.setScore(score);
         currentTime = totalTime;

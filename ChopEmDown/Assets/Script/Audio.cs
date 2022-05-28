@@ -9,8 +9,9 @@ using UnityEngine.UI;
 public class Audio : MonoBehaviour
 {
     // Start is called before the first frame update
-    public AudioSource music, sound;
-    public AudioClip clip;
+    public AudioSource music, sound, audioDead;
+    public AudioClip clip, clipover;
+
     bool ismMusic, ismSound;
     public Button btOnMusic, btOnSounds, btOffMusic, btOffSound;
     
@@ -120,8 +121,10 @@ public class Audio : MonoBehaviour
         sound.PlayOneShot(clip);
     }
 
-
-
+    public void playAudioDead()
+    {
+        audioDead.PlayOneShot(clipover);
+    }
 
 
 
